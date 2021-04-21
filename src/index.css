@@ -12,6 +12,6 @@ code {
     monospace;
 }
 
-.MuiDrawer-root a[href^='#/orders'] {
+.MuiDrawer-root a[href^='#/rentals'] {
   display: none;
 }
