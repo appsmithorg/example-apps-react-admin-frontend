@@ -13,10 +13,9 @@ function App() {
       dataProvider={lb4Provider(process.env.REACT_APP_API_URL, httpClient)}
       authProvider={authProvider}
     >
-      <Resource name='films'/>
       <Resource name='customers' list={CustomerList}  />    
       <Resource name='rentals' create={RentalCreate} list={RentalList} edit={RentalEdit}/>
-
+      <Resource name='films'/>
     </Admin>
   );
 }

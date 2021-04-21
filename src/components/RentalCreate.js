@@ -15,9 +15,9 @@ const RentalCreate = (props) => {
   const refresh = useRefresh();
   const redirect = useRedirect();
 
-  const onSuccess = () => {
+  const onSuccess = ({data}) => {
     notify(`New Rental created `);
-    redirect('/rentals');
+    redirect(`/rentals?filter=%7B"id"%3A"${data.id}"%7D`);
     refresh();
   };
 
@@ -58,6 +58,7 @@ const RentalCreate = (props) => {
         <SelectInput source='film_id' choices={films} />
         <SelectInput
           source='status'
+          defaultValue='new'
           choices={[
             { id: 'new', name: 'new' },
             { id: 'paid', name: 'paid' },
