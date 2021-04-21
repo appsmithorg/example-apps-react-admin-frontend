@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Filter, Datagrid, TextField, TextInput, SearchInput, NumberInput } from 'react-admin';
+import { List, Filter, Datagrid, TextField, SearchInput, } from 'react-admin';
 
 const CustomerFilter = (props) => (
   <Filter {...props}>
@@ -18,7 +18,7 @@ const CustomerList = (props) => (
       <TextField source='first_name' />
       <TextField source='last_name' />
       <TextField source='email' />
-      <TextField source='activebool' />
+      <TextField source='activebool' label='Active' />
     </Datagrid>
   </List>
 );
