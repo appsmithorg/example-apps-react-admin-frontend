@@ -2,8 +2,9 @@ import React from 'react';
 import lb4Provider from 'react-admin-lb4';
 import { Admin, Resource } from 'react-admin';
 import { authProvider, httpClient } from './Auth';
-import OrderList from './components/OrderList';
-import OrderShow from './components/OrderShow';
+import RentalList from './components/RentalList';
+import CustomerList from './components/CustomerList';
+import RentalEdit from './components/RentalEdit';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       dataProvider={lb4Provider(process.env.REACT_APP_API_URL, httpClient)}
       authProvider={authProvider}
     >
-      <Resource name='orders' list={OrderList} show={OrderShow} />
+      <Resource name='customers' list={CustomerList}  />    
+      <Resource name='rentals' list={RentalList} edit={RentalEdit}/>
+
     </Admin>
   );
 }
