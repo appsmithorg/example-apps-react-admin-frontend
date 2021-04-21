@@ -5,6 +5,7 @@ import { authProvider, httpClient } from './Auth';
 import RentalList from './components/RentalList';
 import CustomerList from './components/CustomerList';
 import RentalEdit from './components/RentalEdit';
+import RentalCreate from './components/RentalCreate';
 
 function App() {
   return (
@@ -13,9 +14,8 @@ function App() {
       authProvider={authProvider}
     >
       <Resource name='films'/>
-
       <Resource name='customers' list={CustomerList}  />    
-      <Resource name='rentals' list={RentalList} edit={RentalEdit}/>
+      <Resource name='rentals' create={RentalCreate} list={RentalList} edit={RentalEdit}/>
 
     </Admin>
   );

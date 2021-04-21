@@ -3,15 +3,15 @@ import {
   Edit,
   SimpleForm,
   TextInput,
-  DateInput,
+  DateTimeInput,
   SelectInput,
 } from 'react-admin';
 
 const RentalEdit = (props) => (
   <Edit {...props} title='Edit of Rentals'>
-    <SimpleForm rowClick='edit'>
+    <SimpleForm>
       <TextInput disabled source='id' />
-      <DateInput disabled source='rental_date' />
+      <DateTimeInput disabled source='rental_date' />
 
       <SelectInput
         source='status'
@@ -24,7 +24,7 @@ const RentalEdit = (props) => (
           { id: 'lost', name: 'lost' },
         ]}
       />
-      <DateInput min source='return_date' />
+      <DateTimeInput source='return_date' />
     </SimpleForm>
   </Edit>
 );
