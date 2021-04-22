@@ -3,7 +3,7 @@ import { List, Filter, Datagrid, TextField, SearchInput, } from 'react-admin';
 
 const CustomerFilter = (props) => (
   <Filter {...props}>
-    <SearchInput placeholder='Email' source='email' resettable alwaysOn />
+    <SearchInput placeholder='Customer Email' source='email' resettable alwaysOn />
   </Filter>
 );
 

@@ -4,23 +4,38 @@ import {
   Datagrid,
   TextField,
   DateField,
+  Filter,
+  SearchInput,
   ReferenceField,
 } from 'react-admin';
 
+const RentalFilter = (props) => (
+  <Filter {...props}>
+    <SearchInput placeholder='Rental ID' source='id' resettable alwaysOn />
+  </Filter>
+);
+
 const RentalList = (props) => (
-  <List {...props} title='List of Rentals'>
+  <List {...props} filters={<RentalFilter />} title='List of Rentals'>
     <Datagrid rowClick='edit'>
       <TextField source='id' />
-      <TextField source='status' />
-      <ReferenceField label='Movie Name' source='film_id' reference='films' link={false}>
+      <ReferenceField
+        source='film_id'
+        reference='films'
+        link={false}
+      >
         <TextField source='title' />
       </ReferenceField>
-      <TextField source='inventory_id' />
-      <TextField source='customer_id' />
-      <TextField source='staff_id' />
+      <TextField source='status' />
+      <ReferenceField
+        source='customer_id'
+        reference='customers'
+        link={false}
+      >
+        <TextField source='email' />
+      </ReferenceField>
       <DateField source='rental_date' />
       <DateField source='return_date' />
-      <DateField source='last_update' />
     </Datagrid>
   </List>
 );

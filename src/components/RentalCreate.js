@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Create,
   SimpleForm,
@@ -7,7 +7,7 @@ import {
   useNotify,
   useRefresh,
   useRedirect,
-  useQuery,
+  ReferenceInput,
 } from 'react-admin';
 
 const RentalCreate = (props) => {
@@ -15,57 +15,42 @@ const RentalCreate = (props) => {
   const refresh = useRefresh();
   const redirect = useRedirect();
 
-  const onSuccess = ({data}) => {
+  const onSuccess = ({ data }) => {
     notify(`New Rental created `);
     redirect(`/rentals?filter=%7B"id"%3A"${data.id}"%7D`);
     refresh();
   };
 
-  const [customers, setCustomers] = useState([]);
-  const { data: customer } = useQuery({
-    type: 'getList',
-    resource: 'customers',
-    payload: {
-      pagination: { page: 1, perPage: 600 },
-      sort: { field: 'email', order: 'ASC' },
-      filter: {},
-    },
-  });
-  useEffect(() => {
-    if (customer)
-      setCustomers(customer.map((d) => ({ id: d.id, name: d.email })));
-  }, [customer]);
-
-  const [films, setFilms] = useState([]);
-  const { data: film } = useQuery({
-    type: 'getList',
-    resource: 'films',
-    payload: {
-      pagination: { page: 1, perPage: 1000 },
-      sort: { field: 'title', order: 'ASC' },
-      filter: {},
-    },
-  });
-  useEffect(() => {
-    if (film) setFilms(film.map((d) => ({ id: d.id, name: d.title })));
-  }, [film]);
-
   return (
     <Create {...props} title='Create new Rental' onSuccess={onSuccess}>
       <SimpleForm>
-        <SelectInput source='customer_id' choices={customers} />
-
-        <SelectInput source='film_id' choices={films} />
+        <ReferenceInput
+          label='Customer'
+          source='customer_id'
+          reference='customers'
+          perPage={600}
+          sort={{ field: 'email', order: 'ASC' }}
+        >
+          <SelectInput optionText='email' />
+        </ReferenceInput>
+        <ReferenceInput
+          label='Film'
+          source='film_id'
+          reference='films'
+          perPage={1000}
+          sort={{ field: 'title', order: 'ASC' }}
+        >
+          <SelectInput optionText='title' />
+        </ReferenceInput>
         <SelectInput
           source='status'
-          defaultValue='new'
+          defaultValue='borrowed'
+          disabled
           choices={[
-            { id: 'new', name: 'new' },
-            { id: 'paid', name: 'paid' },
-            { id: 'outbound', name: 'outbound' },
-            { id: 'returned', name: 'returned' },
-            { id: 'canceled', name: 'canceled' },
+            { id: 'borrowed', name: 'borrowed' },
+            { id: 'delayed', name: 'delayed' },
             { id: 'lost', name: 'lost' },
+            { id: 'returned', name: 'returned' },
           ]}
         />
 
