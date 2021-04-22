@@ -6,7 +6,6 @@ import {
   DateField,
   Filter,
   SearchInput,
-  ReferenceField,
 } from 'react-admin';
 
 const RentalFilter = (props) => (
@@ -19,21 +18,9 @@ const RentalList = (props) => (
   <List {...props} filters={<RentalFilter />} title='List of Rentals'>
     <Datagrid rowClick='edit'>
       <TextField source='id' />
-      <ReferenceField
-        source='film_id'
-        reference='films'
-        link={false}
-      >
-        <TextField source='title' />
-      </ReferenceField>
+      <TextField source='film_title' />
       <TextField source='status' />
-      <ReferenceField
-        source='customer_id'
-        reference='customers'
-        link={false}
-      >
-        <TextField source='email' />
-      </ReferenceField>
+      <TextField source='customer_email' />
       <DateField source='rental_date' />
       <DateField source='return_date' />
     </Datagrid>

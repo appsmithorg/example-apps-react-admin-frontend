@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Create,
   SimpleForm,
@@ -7,7 +7,8 @@ import {
   useNotify,
   useRefresh,
   useRedirect,
-  ReferenceInput,
+  useQuery,
+  TextInput,
 } from 'react-admin';
 
 const RentalCreate = (props) => {
@@ -21,27 +22,41 @@ const RentalCreate = (props) => {
     refresh();
   };
 
+  const [customers, setCustomers] = useState([]);
+  const { data: customer } = useQuery({
+    type: 'getList',
+    resource: 'customers',
+    payload: {
+      pagination: { page: 1, perPage: 600 },
+      sort: { field: 'email', order: 'ASC' },
+      filter: {},
+    },
+  });
+
+  const [films, setFilms] = useState([]);
+  const { data: film } = useQuery({
+    type: 'getList',
+    resource: 'films',
+    payload: {
+      pagination: { page: 1, perPage: 1000 },
+      sort: { field: 'title', order: 'ASC' },
+      filter: {},
+    },
+  });
+
+
+  useEffect(() => {
+    if (film) setFilms(film.map((d) => ({ id: d.title, name: d.title })));
+    if (customer)
+      setCustomers(customer.map((d) => ({ id: d.email, name: d.email })));
+  }, [film, customer]);
+
   return (
     <Create {...props} title='Create new Rental' onSuccess={onSuccess}>
       <SimpleForm>
-        <ReferenceInput
-          label='Customer'
-          source='customer_id'
-          reference='customers'
-          perPage={600}
-          sort={{ field: 'email', order: 'ASC' }}
-        >
-          <SelectInput optionText='email' />
-        </ReferenceInput>
-        <ReferenceInput
-          label='Film'
-          source='film_id'
-          reference='films'
-          perPage={1000}
-          sort={{ field: 'title', order: 'ASC' }}
-        >
-          <SelectInput optionText='title' />
-        </ReferenceInput>
+        <TextInput disabled source='staff_id' defaultValue='1' />
+        <SelectInput source='customer_email' choices={customers} />
+        <SelectInput source='film_title' choices={films} />
         <SelectInput
           source='status'
           defaultValue='borrowed'

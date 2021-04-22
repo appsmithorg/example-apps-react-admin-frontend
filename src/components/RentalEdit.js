@@ -5,22 +5,14 @@ import {
   TextInput,
   DateTimeInput,
   SelectInput,
-  ReferenceInput,
 } from 'react-admin';
 
 const RentalEdit = (props) => (
   <Edit {...props} title='Edit of Rentals'>
     <SimpleForm>
       <TextInput disabled source='id' />
-      <ReferenceInput  source='film_id' reference='films'>
-        <SelectInput disabled optionText='title' />
-      </ReferenceInput>
-      <ReferenceInput
-        source='customer_id'
-        reference='customers'
-      >
-        <SelectInput disabled optionText='email' />
-      </ReferenceInput>
+      <TextInput disabled source='film_title' />
+      <TextInput disabled source='customer_email' />
       <DateTimeInput disabled source='rental_date' />
 
       <SelectInput
