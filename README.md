@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+> This repo is belongs to the tutorial at https://youtu.be/4y2FFEmPW7I
+
 This project is the frontend dashboard UI built with `React-admin`. Its is currently hosted on `Netlify` at [https://as-react-admin.netlify.app/#/rentals](https://as-react-admin.netlify.app/#/rentals). Here are the login credentials
 
 ```
